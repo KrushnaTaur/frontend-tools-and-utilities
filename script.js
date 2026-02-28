@@ -19,6 +19,13 @@ const tools = [
     image: "./assets/password.png",
     live: "./tools/password-generator/index.html",
     code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/password-generator"
+  },
+  {
+    name: "Unit Converter",
+    description: "Convert between length, weight, and temperature units.",
+    image: "./assets/unit.png",
+    live: "./tools/unit-converter/index.html",
+    code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/unit-converter"
   }
 ];
 
