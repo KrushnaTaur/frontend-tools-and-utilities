@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Age Calculator</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f4f6f8;
+      padding: 20px;
+    }
+    .card {
+      background: #fff;
+      width: 100%;
+      max-width: 380px;
+      padding: 26px;
+      border-radius: 16px;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 18px;
+      color: #333;
+      font-size: 1.5rem;
+    }
+    label {
+      display: block;
+      text-align: left;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      color: #555;
+    }
+    input[type="date"] {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+      margin-bottom: 14px;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+    input:focus {
+      outline: none;
+      border-color: #4c8bf5;
+      box-shadow: 0 0 0 2px rgba(76,139,245,0.15);
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: #4c8bf5;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover { background: #3a73d9; }
+    .result {
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 10px;
+      background: #eef4ff;
+      color: #1a3f8b;
+      font-weight: 600;
+      display: none;
+    }
+    .error {
+      margin-top: 12px;
+      color: #c62828;
+      font-size: 0.9rem;
+      display: none;
+    }
+    @media (max-width: 420px) {
+      .card { padding: 22px; }
+      h1 { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Age Calculator</h1>
+    <label for="dob">Date of Birth</label>
+    <input type="date" id="dob" />
+    <button id="calcBtn">Calculate Age</button>
+    <div class="error" id="errorMsg"></div>
+    <div class="result" id="resultBox"></div>
+  </div>
+
+  <script>
+    const dobInput = document.getElementById('dob');
+    const calcBtn = document.getElementById('calcBtn');
+    const resultBox = document.getElementById('resultBox');
+    const errorMsg = document.getElementById('errorMsg');
+
+    function showError(msg) {
+      errorMsg.textContent = msg;
+      errorMsg.style.display = 'block';
+      resultBox.style.display = 'none';
+    }
+
+    function clearError() {
+      errorMsg.style.display = 'none';
+    }
+
+    function calculateAge(dob) {
+      const today = new Date();
+      let years = today.getFullYear() - dob.getFullYear();
+      let months = today.getMonth() - dob.getMonth();
+      let days = today.getDate() - dob.getDate();
+
+      if (days < 0) {
+        months--;
+        const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+        days += prevMonth.getDate();
+      }
+
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+
+      return { years, months, days };
+    }
+
+    calcBtn.addEventListener('click', () => {
+      const dobValue = dobInput.value;
+
+      if (!dobValue) {
+        showError('Please select your date of birth');
+        return;
+      }
+
+      const dob = new Date(dobValue);
+      const today = new Date();
+
+      if (dob > today) {
+        showError('Date of birth cannot be in the future');
+        return;
+      }
+
+      clearError();
+
+      const age = calculateAge(dob);
+
+      resultBox.textContent = `You are ${age.years} years, ${age.months} months, ${age.days} days old.`;
+      resultBox.style.display = 'block';
+    });
+  </script>
+</body>
+</html>
