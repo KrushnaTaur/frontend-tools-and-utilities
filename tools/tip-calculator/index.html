@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tip Calculator</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f4f6f8;
+      padding: 20px;
+    }
+    .card {
+      background: #fff;
+      width: 100%;
+      max-width: 420px;
+      padding: 26px;
+      border-radius: 16px;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 18px;
+      color: #333;
+      font-size: 1.5rem;
+    }
+    .field { margin-bottom: 14px; }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      color: #555;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #4c8bf5;
+      box-shadow: 0 0 0 2px rgba(76,139,245,0.15);
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: #4c8bf5;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 6px;
+    }
+    button:hover { background: #3a73d9; }
+    .result {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 12px;
+      background: #eef4ff;
+      color: #1a3f8b;
+      font-weight: 600;
+      display: none;
+    }
+    .result div { margin-bottom: 6px; }
+    .error {
+      margin-top: 10px;
+      color: #c62828;
+      font-size: 0.9rem;
+      text-align: center;
+      display: none;
+    }
+    @media (max-width: 420px) {
+      .card { padding: 22px; }
+      h1 { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Tip Calculator</h1>
+
+    <div class="field">
+      <label for="bill">Bill Amount</label>
+      <input type="number" id="bill" placeholder="Enter bill amount" />
+    </div>
+
+    <div class="field">
+      <label for="tip">Tip Percentage</label>
+      <select id="tip">
+        <option value="5">5%</option>
+        <option value="10">10%</option>
+        <option value="15" selected>15%</option>
+        <option value="18">18%</option>
+        <option value="20">20%</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="people">Number of People</label>
+      <input type="number" id="people" value="1" min="1" />
+    </div>
+
+    <button id="calcBtn">Calculate</button>
+
+    <div class="result" id="resultBox">
+      <div id="tipAmount"></div>
+      <div id="totalBill"></div>
+      <div id="perPerson"></div>
+    </div>
+
+    <div class="error" id="errorMsg"></div>
+  </div>
+
+  <script>
+    const billInput = document.getElementById('bill');
+    const tipSelect = document.getElementById('tip');
+    const peopleInput = document.getElementById('people');
+    const calcBtn = document.getElementById('calcBtn');
+    const resultBox = document.getElementById('resultBox');
+    const errorMsg = document.getElementById('errorMsg');
+    const tipAmountEl = document.getElementById('tipAmount');
+    const totalBillEl = document.getElementById('totalBill');
+    const perPersonEl = document.getElementById('perPerson');
+
+    function showError(msg) {
+      errorMsg.textContent = msg;
+      errorMsg.style.display = 'block';
+      resultBox.style.display = 'none';
+    }
+    function clearError() { errorMsg.style.display = 'none'; }
+
+    calcBtn.addEventListener('click', () => {
+      const bill = parseFloat(billInput.value);
+      const tipPercent = parseFloat(tipSelect.value);
+      const people = parseInt(peopleInput.value, 10);
+
+      if (billInput.value === '' || peopleInput.value === '') {
+        showError('Please fill all inputs');
+        return;
+      }
+      if (isNaN(bill) || bill <= 0) {
+        showError('Bill must be greater than 0');
+        return;
+      }
+      if (isNaN(people) || people <= 0) {
+        showError('People must be at least 1');
+        return;
+      }
+
+      clearError();
+
+      const tipAmount = bill * (tipPercent / 100);
+      const totalBill = bill + tipAmount;
+      const perPerson = totalBill / people;
+
+      tipAmountEl.textContent = `Tip: ${tipAmount.toFixed(2)}`;
+      totalBillEl.textContent = `Total Bill: ${totalBill.toFixed(2)}`;
+      perPersonEl.textContent = `Per Person: ${perPerson.toFixed(2)}`;
+
+      resultBox.style.display = 'block';
+    });
+  </script>
+</body>
+</html>

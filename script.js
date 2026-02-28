@@ -26,6 +26,13 @@ const tools = [
     image: "./assets/unit.png",
     live: "./tools/unit-converter/index.html",
     code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/unit-converter"
+  },
+    {
+    name: "Tip Calculator",
+    description: "Calculate tip, total bill, and split amount per person.",
+    image: "./assets/tip.png",
+    live: "./tools/tip-calculator/index.html",
+    code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/tip-calculator"
   }
 ];
 
