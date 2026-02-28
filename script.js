@@ -1,0 +1,40 @@
+const tools = [
+  {
+    name: "BMI Calculator",
+    description: "Calculate Body Mass Index based on height and weight.",
+    image: "./assets/bmi.png",
+    live: "./tools/bmi-calculator/index.html",
+    code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/bmi-calculator"
+  },
+  {
+    name: "Age Calculator",
+    description: "Compute exact age from birth date.",
+    image: "./assets/age.png",
+    live: "./tools/age-calculator/index.html",
+    code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/age-calculator"
+  }
+];
+
+const grid = document.getElementById("toolsGrid");
+const count = document.getElementById("toolCount");
+
+tools.forEach(tool => {
+  const card = document.createElement("div");
+  card.className = "tool-card";
+
+  card.innerHTML = `
+    <img src="${tool.image}" class="tool-image" alt="${tool.name}">
+    <div class="tool-content">
+      <h3>${tool.name}</h3>
+      <p>${tool.description}</p>
+      <div class="buttons">
+        <a href="${tool.live}" class="btn primary">Open Tool</a>
+        <a href="${tool.code}" target="_blank" class="btn secondary">Code</a>
+      </div>
+    </div>
+  `;
+
+  grid.appendChild(card);
+});
+
+count.textContent = tools.length;
