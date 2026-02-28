@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BMI Calculator</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f4f6f8;
+      padding: 20px;
+    }
+    .card {
+      background: #fff;
+      width: 100%;
+      max-width: 360px;
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+      font-size: 1.5rem;
+    }
+    .field { margin-bottom: 16px; }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      color: #555;
+    }
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+    input:focus {
+      outline: none;
+      border-color: #4c8bf5;
+      box-shadow: 0 0 0 2px rgba(76,139,245,0.15);
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: #4c8bf5;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 8px;
+    }
+    button:hover { background: #3a73d9; }
+    .result {
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 10px;
+      background: #f1f3f5;
+      text-align: center;
+      display: none;
+    }
+    .bmi-value { font-size: 1.4rem; font-weight: bold; margin-bottom: 4px; }
+    .category { font-size: 1rem; font-weight: 600; }
+    .green { color: #2e7d32; }
+    .orange { color: #ef6c00; }
+    .red { color: #c62828; }
+    .error {
+      margin-top: 10px;
+      color: #c62828;
+      font-size: 0.9rem;
+      text-align: center;
+      display: none;
+    }
+    @media (max-width: 400px) {
+      .card { padding: 20px; }
+      h1 { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>BMI Calculator</h1>
+    <div class="field">
+      <label for="height">Height (cm)</label>
+      <input type="number" id="height" placeholder="Enter height in cm" />
+    </div>
+    <div class="field">
+      <label for="weight">Weight (kg)</label>
+      <input type="number" id="weight" placeholder="Enter weight in kg" />
+    </div>
+    <button id="calcBtn">Calculate BMI</button>
+    <div class="error" id="errorMsg"></div>
+    <div class="result" id="resultBox">
+      <div class="bmi-value" id="bmiValue"></div>
+      <div class="category" id="bmiCategory"></div>
+    </div>
+  </div>
+
+  <script>
+    const heightInput = document.getElementById('height');
+    const weightInput = document.getElementById('weight');
+    const calcBtn = document.getElementById('calcBtn');
+    const resultBox = document.getElementById('resultBox');
+    const bmiValue = document.getElementById('bmiValue');
+    const bmiCategory = document.getElementById('bmiCategory');
+    const errorMsg = document.getElementById('errorMsg');
+
+    function showError(msg) {
+      errorMsg.textContent = msg;
+      errorMsg.style.display = 'block';
+      resultBox.style.display = 'none';
+    }
+
+    function clearError() {
+      errorMsg.style.display = 'none';
+    }
+
+    function getCategory(bmi) {
+      if (bmi < 18.5) return { text: 'Underweight', class: '' };
+      if (bmi < 25) return { text: 'Normal', class: 'green' };
+      if (bmi < 30) return { text: 'Overweight', class: 'orange' };
+      return { text: 'Obese', class: 'red' };
+    }
+
+    calcBtn.addEventListener('click', () => {
+      const height = parseFloat(heightInput.value);
+      const weight = parseFloat(weightInput.value);
+
+      if (!heightInput.value || !weightInput.value) {
+        showError('Please enter height and weight');
+        return;
+      }
+      if (height <= 0 || weight <= 0) {
+        showError('Values must be positive numbers');
+        return;
+      }
+
+      clearError();
+
+      const heightM = height / 100;
+      const bmi = weight / (heightM * heightM);
+      const bmiRounded = bmi.toFixed(1);
+
+      const category = getCategory(bmi);
+
+      bmiValue.textContent = `BMI: ${bmiRounded}`;
+      bmiCategory.textContent = category.text;
+      bmiCategory.className = 'category ' + category.class;
+
+      resultBox.style.display = 'block';
+    });
+  </script>
+</body>
+</html>
