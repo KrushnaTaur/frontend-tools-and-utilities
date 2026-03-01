@@ -40,6 +40,13 @@ const tools = [
     image: "./assets/emi.png",
     live: "./tools/emi-calculator/index.html",
     code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/emi-calculator"
+  },
+  {
+    name: "Color Picker",
+    description: "Pick colors and copy HEX or RGB values.",
+    image: "./assets/color.png",
+    live: "./tools/color-picker/index.html",
+    code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/color-picker"
   }
 ];
 
