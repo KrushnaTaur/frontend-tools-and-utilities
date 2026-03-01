@@ -47,6 +47,13 @@ const tools = [
     image: "./assets/color.png",
     live: "./tools/color-picker/index.html",
     code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/color-picker"
+  },
+  {
+    name: "Text Case Converter",
+    description: "Convert text to uppercase, lowercase, sentence case, and more.",
+    image: "./assets/text.png",
+    live: "./tools/text-case-converter/index.html",
+    code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/text-case-converter"
   }
 ];
 
