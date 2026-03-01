@@ -54,6 +54,13 @@ const tools = [
     image: "./assets/text.png",
     live: "./tools/text-case-converter/index.html",
     code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/text-case-converter"
+  },
+  {
+    name: "Stopwatch",
+    description: "Digital stopwatch with start, pause, and reset functionality.",
+    image: "./assets/stopwatch.png",
+    live: "./tools/stopwatch/index.html",
+    code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/stopwatch"
   }
 ];
 
