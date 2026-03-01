@@ -61,6 +61,13 @@ const tools = [
     image: "./assets/stopwatch.png",
     live: "./tools/stopwatch/index.html",
     code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/stopwatch"
+  },
+  {
+    name: "Random Number Generator",
+    description: "Generate a random number within a custom range.",
+    image: "./assets/random.png",
+    live: "./tools/random-number-generator/index.html",
+    code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/random-number-generator"
   }
 ];
 
