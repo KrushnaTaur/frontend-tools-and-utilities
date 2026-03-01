@@ -33,6 +33,13 @@ const tools = [
     image: "./assets/tip.png",
     live: "./tools/tip-calculator/index.html",
     code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/tip-calculator"
+  },
+  {
+    name: "EMI Calculator",
+    description: "Calculate monthly loan EMI, total interest, and total payment.",
+    image: "./assets/emi.png",
+    live: "./tools/emi-calculator/index.html",
+    code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/emi-calculator"
   }
 ];
 
