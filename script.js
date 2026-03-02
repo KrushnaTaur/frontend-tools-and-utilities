@@ -96,6 +96,13 @@ const tools = [
     image: "./assets/base64.png",
     live: "./tools/base64-encoder-decoder/index.html",
     code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/base64-encoder-decoder"
+  },
+  {
+    name: "Text Statistics Tool",
+    description: "Live character, word, sentence, and paragraph counter.",
+    image: "./assets/text-stats.png",
+    live: "./tools/text-statistics/index.html",
+    code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/text-statistics"
   }
 ];
 
