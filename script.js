@@ -89,6 +89,13 @@ const tools = [
     image: "./assets/json.png",
     live: "./tools/json-formatter/index.html",
     code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/json-formatter"
+  },
+  {
+    name: "Base64 Encoder / Decoder",
+    description: "Encode text to Base64 and decode Base64 back to readable text.",
+    image: "./assets/base64.png",
+    live: "./tools/base64-encoder-decoder/index.html",
+    code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/base64-encoder-decoder"
   }
 ];
 
