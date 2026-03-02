@@ -75,6 +75,13 @@ const tools = [
     image: "./assets/random.png",
     live: "./tools/random-number-generator/index.html",
     code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/random-number-generator"
+  },
+    {
+    name: "Markdown Previewer",
+    description: "Live Markdown editor with real-time HTML preview.",
+    image: "./assets/markdown.png",
+    live: "./tools/markdown-previewer/index.html",
+    code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/markdown-previewer"
   }
 ];
 
