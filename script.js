@@ -1,5 +1,12 @@
 const tools = [
   {
+    name: "QR Code Generator",
+    description: "Generate and download QR codes from text or URLs.",
+    image: "./assets/qr.png",
+    live: "./tools/qr-generator/index.html",
+    code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/qr-generator"
+  },
+  {
     name: "BMI Calculator",
     description: "Calculate Body Mass Index based on height and weight.",
     image: "./assets/bmi.png",
