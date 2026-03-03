@@ -110,6 +110,13 @@ const tools = [
     image: "./assets/diff.png",
     live: "./tools/text-diff-checker/index.html",
     code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/text-diff-checker"
+  },
+  {
+    name: "Regex Tester",
+    description: "Test regular expressions with live match highlighting.",
+    image: "./assets/regex.png",
+    live: "./tools/regex-tester/index.html",
+    code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/regex-tester"
   }
 ];
 
