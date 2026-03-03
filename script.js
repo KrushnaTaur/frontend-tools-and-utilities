@@ -124,6 +124,13 @@ const tools = [
     image: "./assets/gradient.png",
     live: "./tools/css-gradient-generator/index.html",
     code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/css-gradient-generator"
+  },
+  {
+    name: "Time Zone Converter",
+    description: "Convert date and time between global time zones instantly.",
+    image: "./assets/timezone.png",
+    live: "./tools/time-zone-converter/index.html",
+    code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/time-zone-converter"
   }
 ];
 
