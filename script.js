@@ -103,6 +103,13 @@ const tools = [
     image: "./assets/text-stats.png",
     live: "./tools/text-statistics/index.html",
     code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/text-statistics"
+  },
+  {
+    name: "Text Diff Checker",
+    description: "Compare two texts and highlight line-by-line differences.",
+    image: "./assets/diff.png",
+    live: "./tools/text-diff-checker/index.html",
+    code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/text-diff-checker"
   }
 ];
 
