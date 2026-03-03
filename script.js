@@ -117,6 +117,13 @@ const tools = [
     image: "./assets/regex.png",
     live: "./tools/regex-tester/index.html",
     code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/regex-tester"
+  },
+  {
+    name: "CSS Gradient Generator",
+    description: "Create linear CSS gradients with live preview and copyable code.",
+    image: "./assets/gradient.png",
+    live: "./tools/css-gradient-generator/index.html",
+    code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/css-gradient-generator"
   }
 ];
 
