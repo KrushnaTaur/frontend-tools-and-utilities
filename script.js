@@ -131,6 +131,13 @@ const tools = [
     image: "./assets/timezone.png",
     live: "./tools/time-zone-converter/index.html",
     code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/time-zone-converter"
+  },
+  {
+    name: "Loan Eligibility Calculator",
+    description: "Check loan eligibility based on income, EMIs, and age.",
+    image: "./assets/loan.png",
+    live: "./tools/loan-eligibility-calculator/index.html",
+    code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/loan-eligibility-calculator"
   }
 ];
 
