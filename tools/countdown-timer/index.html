@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Countdown Timer</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+    body{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f4f6f8;padding:20px}
+    .card{background:#fff;width:100%;max-width:400px;padding:28px;border-radius:16px;box-shadow:0 12px 28px rgba(0,0,0,0.08);text-align:center}
+    h1{margin-bottom:20px;color:#333;font-size:1.5rem}
+    .row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:20px}
+    .time-block label{display:block;font-size:0.75rem;color:#999;margin-bottom:4px}
+    input[type=number]{width:100%;padding:10px 4px;border:1px solid #ddd;border-radius:8px;font-size:1.1rem;text-align:center}
+    .clock{font-size:3.5rem;font-weight:700;color:#4c8bf5;letter-spacing:3px;margin:10px 0 20px}
+    .btns{display:flex;gap:10px}
+    button{flex:1;padding:11px;border:none;border-radius:10px;font-size:1rem;cursor:pointer;font-weight:600}
+    .go{background:#4c8bf5;color:#fff}.go:hover{background:#3a73d9}
+    .stop{background:#f1f3f5;color:#555}.stop:hover{background:#e2e8f0}
+    .msg{margin-top:12px;font-size:1rem;color:#e74c3c;font-weight:600;min-height:24px}
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>Countdown Timer</h1>
+  <div class="row">
+    <div class="time-block"><label>Hours</label><input type="number" id="h" min="0" max="99" value="0"/></div>
+    <div class="time-block"><label>Minutes</label><input type="number" id="m" min="0" max="59" value="5"/></div>
+    <div class="time-block"><label>Seconds</label><input type="number" id="s" min="0" max="59" value="0"/></div>
+  </div>
+  <div class="clock" id="clock">05:00</div>
+  <div class="btns">
+    <button class="go" onclick="start()">Start</button>
+    <button class="stop" onclick="stop()">Stop</button>
+    <button class="stop" onclick="reset()">Reset</button>
+  </div>
+  <div class="msg" id="msg"></div>
+</div>
+<script>
+  let secs=0,interval=null;
+  function start(){
+    clearInterval(interval);
+    secs=+document.getElementById('h').value*3600+ +document.getElementById('m').value*60+ +document.getElementById('s').value;
+    if(secs<=0)return;document.getElementById('msg').textContent='';
+    interval=setInterval(()=>{secs--;render();if(secs<=0){clearInterval(interval);document.getElementById('msg').textContent='⏰ Time is up!';}},1000);
+    render();
+  }
+  function stop(){clearInterval(interval);}
+  function reset(){clearInterval(interval);secs=0;document.getElementById('clock').textContent='00:00';document.getElementById('msg').textContent='';}
+  function render(){const h=Math.floor(secs/3600),m=Math.floor((secs%3600)/60),s=secs%60;document.getElementById('clock').textContent=`${h>0?String(h).padStart(2,'0')+':':''}${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;}
+</script>
+</body>
+</html>

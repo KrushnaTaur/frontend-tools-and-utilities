@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Text Encryptor</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+    body{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f4f6f8;padding:20px}
+    .card{background:#fff;width:100%;max-width:500px;padding:28px;border-radius:16px;box-shadow:0 12px 28px rgba(0,0,0,0.08)}
+    h1{text-align:center;margin-bottom:8px;color:#333;font-size:1.5rem}
+    p{text-align:center;color:#999;font-size:0.8rem;margin-bottom:18px}
+    .field{margin-bottom:12px}label{display:block;margin-bottom:5px;font-size:0.9rem;color:#555}
+    textarea,input{width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:0.95rem}
+    textarea{height:90px;resize:vertical;font-family:monospace}
+    .btns{display:flex;gap:10px;margin-top:4px}
+    button{flex:1;padding:11px;border:none;border-radius:10px;font-size:0.95rem;cursor:pointer;font-weight:600}
+    .enc{background:#4c8bf5;color:#fff}.enc:hover{background:#3a73d9}
+    .dec{background:#e8f0ff;color:#2a4dbf}.dec:hover{background:#d8e6ff}
+    .err{color:#e74c3c;font-size:0.85rem;margin-top:8px;min-height:16px}
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>Text Encryptor</h1>
+  <p>AES-GCM encryption (client-side only, your data never leaves the browser)</p>
+  <div class="field"><label>Message</label><textarea id="msg" placeholder="Enter text to encrypt or encrypted output to decrypt..."></textarea></div>
+  <div class="field"><label>Password</label><input type="password" id="pw" placeholder="Your secret password"/></div>
+  <div class="btns">
+    <button class="enc" onclick="encrypt()">Encrypt</button>
+    <button class="dec" onclick="decrypt()">Decrypt</button>
+  </div>
+  <div class="err" id="err"></div>
+  <div class="field" style="margin-top:12px"><label>Output</label><textarea id="out" readonly></textarea></div>
+  <button onclick="navigator.clipboard.writeText(document.getElementById('out').value)" style="width:100%;padding:9px;background:#f1f3f5;color:#555;border:none;border-radius:8px;cursor:pointer;margin-top:6px">Copy</button>
+</div>
+<script>
+  async function getKey(pw,salt){const enc=new TextEncoder(),km=await crypto.subtle.importKey('raw',enc.encode(pw),{name:'PBKDF2'},false,['deriveKey']);return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:100000,hash:'SHA-256'},km,{name:'AES-GCM',length:256},false,['encrypt','decrypt']);}
+  async function encrypt(){
+    try{
+      const msg=document.getElementById('msg').value,pw=document.getElementById('pw').value;
+      if(!pw){document.getElementById('err').textContent='Enter a password';return;}
+      const salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12));
+      const key=await getKey(pw,salt),enc=new TextEncoder();
+      const ct=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,enc.encode(msg));
+      const combined=new Uint8Array(salt.length+iv.length+ct.byteLength);combined.set(salt);combined.set(iv,16);combined.set(new Uint8Array(ct),28);
+      document.getElementById('out').value=btoa(String.fromCharCode(...combined));document.getElementById('err').textContent='';
+    }catch(e){document.getElementById('err').textContent='Encryption failed: '+e.message;}
+  }
+  async function decrypt(){
+    try{
+      const ct=document.getElementById('msg').value.trim(),pw=document.getElementById('pw').value;
+      const data=Uint8Array.from(atob(ct),c=>c.charCodeAt(0));
+      const salt=data.slice(0,16),iv=data.slice(16,28),ciphertext=data.slice(28);
+      const key=await getKey(pw,salt);
+      const plain=await crypto.subtle.decrypt({name:'AES-GCM',iv},key,ciphertext);
+      document.getElementById('out').value=new TextDecoder().decode(plain);document.getElementById('err').textContent='';
+    }catch(e){document.getElementById('err').textContent='Decryption failed. Wrong password?';}
+  }
+</script>
+</body>
+</html>

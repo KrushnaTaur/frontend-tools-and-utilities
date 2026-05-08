@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Pomodoro Timer</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+    body{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f4f6f8;padding:20px}
+    .card{background:#fff;width:100%;max-width:360px;padding:32px;border-radius:16px;box-shadow:0 12px 28px rgba(0,0,0,0.08);text-align:center}
+    h1{margin-bottom:6px;color:#333;font-size:1.5rem}
+    .mode-btns{display:flex;gap:8px;margin:16px 0}
+    .mode-btn{flex:1;padding:8px;border:2px solid #ddd;border-radius:8px;background:#fff;cursor:pointer;font-size:0.85rem;color:#555}
+    .mode-btn.active{border-color:#e74c3c;color:#e74c3c;font-weight:700}
+    .clock{font-size:4.5rem;font-weight:700;color:#333;letter-spacing:2px;margin:16px 0}
+    .session{font-size:0.9rem;color:#999;margin-bottom:20px}
+    .btns{display:flex;gap:10px}
+    button.action{flex:1;padding:12px;border:none;border-radius:10px;font-size:1rem;cursor:pointer;font-weight:600}
+    .start{background:#e74c3c;color:#fff}
+    .start:hover{background:#c0392b}
+    .reset{background:#f1f3f5;color:#555}
+    .reset:hover{background:#e2e8f0}
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>Pomodoro Timer</h1>
+  <div class="mode-btns">
+    <button class="mode-btn active" onclick="setMode('work',25)">Work</button>
+    <button class="mode-btn" onclick="setMode('short',5)">Short Break</button>
+    <button class="mode-btn" onclick="setMode('long',15)">Long Break</button>
+  </div>
+  <div class="clock" id="clock">25:00</div>
+  <div class="session" id="session">Session 1 of ∞</div>
+  <div class="btns">
+    <button class="action start" id="startBtn" onclick="toggle()">Start</button>
+    <button class="action reset" onclick="reset()">Reset</button>
+  </div>
+</div>
+<script>
+  let secs=25*60,running=false,interval=null,sessions=1;
+  function setMode(mode,mins){
+    clearInterval(interval);running=false;
+    document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
+    event.target.classList.add('active');
+    secs=mins*60;document.getElementById('startBtn').textContent='Start';
+    render();
+  }
+  function toggle(){
+    if(running){clearInterval(interval);running=false;document.getElementById('startBtn').textContent='Resume';}
+    else{running=true;document.getElementById('startBtn').textContent='Pause';
+      interval=setInterval(()=>{if(secs>0){secs--;render();}else{clearInterval(interval);running=false;sessions++;document.getElementById('session').textContent=`Session ${sessions} of ∞`;alert('Time is up!');}},1000);}
+  }
+  function reset(){clearInterval(interval);running=false;const m=parseInt(document.querySelector('.mode-btn.active').onclick.toString().match(/\d+/g)?.[1]||25);secs=m*60;document.getElementById('startBtn').textContent='Start';render();}
+  function render(){const m=String(Math.floor(secs/60)).padStart(2,'0'),s=String(secs%60).padStart(2,'0');document.getElementById('clock').textContent=`${m}:${s}`;}
+  function reset(){clearInterval(interval);running=false;secs=25*60;document.getElementById('startBtn').textContent='Start';render();}
+</script>
+</body>
+</html>

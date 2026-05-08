@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>URL Encoder / Decoder</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+    body{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f4f6f8;padding:20px}
+    .card{background:#fff;width:100%;max-width:500px;padding:28px;border-radius:16px;box-shadow:0 12px 28px rgba(0,0,0,0.08)}
+    h1{text-align:center;margin-bottom:20px;color:#333;font-size:1.5rem}
+    label{display:block;margin-bottom:5px;font-size:0.9rem;color:#555}
+    textarea{width:100%;height:90px;padding:12px;border:1px solid #ddd;border-radius:10px;font-size:0.95rem;resize:vertical;margin-bottom:12px}
+    .btns{display:flex;gap:10px;margin-bottom:12px}
+    button{flex:1;padding:11px;border:none;border-radius:10px;font-size:0.95rem;cursor:pointer;font-weight:600}
+    .enc{background:#4c8bf5;color:#fff}.enc:hover{background:#3a73d9}
+    .dec{background:#e8f0ff;color:#2a4dbf}.dec:hover{background:#d8e6ff}
+    .cp{background:#f1f3f5;color:#555}.cp:hover{background:#e2e8f0}
+    .err{color:#e74c3c;font-size:0.85rem;min-height:18px;margin-bottom:8px}
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>URL Encoder / Decoder</h1>
+  <label>Input</label>
+  <textarea id="input" placeholder="Enter URL or text to encode/decode..."></textarea>
+  <div class="btns">
+    <button class="enc" onclick="encode()">Encode</button>
+    <button class="dec" onclick="decode()">Decode</button>
+  </div>
+  <div class="err" id="err"></div>
+  <label>Output</label>
+  <textarea id="output" readonly></textarea>
+  <div class="btns" style="margin-top:8px">
+    <button class="cp" onclick="navigator.clipboard.writeText(document.getElementById('output').value)">Copy Output</button>
+    <button class="cp" onclick="document.getElementById('input').value='';document.getElementById('output').value='';">Clear</button>
+  </div>
+</div>
+<script>
+  function encode(){try{document.getElementById('output').value=encodeURIComponent(document.getElementById('input').value);document.getElementById('err').textContent='';}catch(e){document.getElementById('err').textContent='Encoding error: '+e.message;}}
+  function decode(){try{document.getElementById('output').value=decodeURIComponent(document.getElementById('input').value);document.getElementById('err').textContent='';}catch(e){document.getElementById('err').textContent='Decoding error: '+e.message;}}
+</script>
+</body>
+</html>

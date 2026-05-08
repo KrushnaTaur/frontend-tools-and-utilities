@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Temperature Converter</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+    body{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f4f6f8;padding:20px}
+    .card{background:#fff;width:100%;max-width:400px;padding:28px;border-radius:16px;box-shadow:0 12px 28px rgba(0,0,0,0.08)}
+    h1{text-align:center;margin-bottom:20px;color:#333;font-size:1.5rem}
+    .field{margin-bottom:12px;display:flex;gap:10px;align-items:center}
+    label{width:90px;font-size:0.9rem;color:#555}
+    input{flex:1;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:1rem}
+    .unit{width:36px;font-size:0.9rem;color:#999}
+    .note{font-size:0.8rem;color:#aaa;text-align:center;margin-top:10px}
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>Temperature Converter</h1>
+  <div class="field"><label>Celsius</label><input type="number" id="c" placeholder="°C" oninput="fromC()"/><span class="unit">°C</span></div>
+  <div class="field"><label>Fahrenheit</label><input type="number" id="f" placeholder="°F" oninput="fromF()"/><span class="unit">°F</span></div>
+  <div class="field"><label>Kelvin</label><input type="number" id="k" placeholder="K" oninput="fromK()"/><span class="unit">K</span></div>
+  <div class="field"><label>Rankine</label><input type="number" id="r" placeholder="°R" oninput="fromR()"/><span class="unit">°R</span></div>
+  <p class="note">Edit any field to auto-convert all others</p>
+</div>
+<script>
+  function set(c,f,k,r){document.getElementById('c').value=c.toFixed(4);document.getElementById('f').value=f.toFixed(4);document.getElementById('k').value=k.toFixed(4);document.getElementById('r').value=r.toFixed(4);}
+  function fromC(){const c=+document.getElementById('c').value;set(c,c*9/5+32,c+273.15,(c+273.15)*9/5);}
+  function fromF(){const f=+document.getElementById('f').value,c=(f-32)*5/9;set(c,f,c+273.15,f+459.67);}
+  function fromK(){const k=+document.getElementById('k').value,c=k-273.15;set(c,c*9/5+32,k,k*9/5);}
+  function fromR(){const r=+document.getElementById('r').value,k=r*5/9;fromK();document.getElementById('k').value=k.toFixed(4);fromK();}
+</script>
+</body>
+</html>

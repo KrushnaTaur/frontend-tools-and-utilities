@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Invoice Generator</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+    body{background:#f4f6f8;padding:20px}
+    .card{background:#fff;max-width:700px;margin:0 auto;padding:30px;border-radius:16px;box-shadow:0 12px 28px rgba(0,0,0,0.08)}
+    h1{text-align:center;margin-bottom:20px;color:#333;font-size:1.5rem}
+    .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+    .field label{display:block;font-size:0.85rem;color:#555;margin-bottom:4px}
+    .field input,.field textarea{width:100%;padding:9px;border:1px solid #ddd;border-radius:8px;font-size:0.95rem}
+    .field textarea{height:70px;resize:vertical}
+    .items-table{width:100%;border-collapse:collapse;margin:16px 0}
+    .items-table th{background:#f1f3f5;padding:10px;font-size:0.85rem;color:#555;text-align:left;border:1px solid #eee}
+    .items-table td{padding:8px;border:1px solid #eee}
+    .items-table input{width:100%;border:none;background:transparent;font-size:0.9rem;padding:2px 4px}
+    .btns{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+    button{flex:1;padding:10px;background:#4c8bf5;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:0.9rem}
+    button:hover{background:#3a73d9}
+    button.del{background:#fce8e8;color:#c62828}
+    button.del:hover{background:#fbd8d8}
+    .total{text-align:right;font-size:1.1rem;margin-top:10px}
+    .total b{color:#4c8bf5}
+    .print-btn{width:100%;margin-top:16px;padding:12px;background:#2e7d32;color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:1rem}
+    .print-btn:hover{background:#1b5e20}
+    @media print{button,.print-btn{display:none!important}.card{box-shadow:none;padding:10px}}
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>Invoice Generator</h1>
+  <div class="row2">
+    <div class="field"><label>From (Your Name/Company)</label><textarea id="from" placeholder="Company name&#10;Address&#10;Email"></textarea></div>
+    <div class="field"><label>To (Client)</label><textarea id="to" placeholder="Client name&#10;Address&#10;Email"></textarea></div>
+  </div>
+  <div class="row2">
+    <div class="field"><label>Invoice #</label><input id="invno" value="INV-001"/></div>
+    <div class="field"><label>Date</label><input type="date" id="date"/></div>
+  </div>
+  <table class="items-table" id="items">
+    <thead><tr><th>Description</th><th>Qty</th><th>Rate</th><th>Amount</th><th></th></tr></thead>
+    <tbody id="tbody"></tbody>
+  </table>
+  <div class="btns">
+    <button onclick="addRow()">+ Add Item</button>
+  </div>
+  <div class="total" id="total">Total: <b>₹0.00</b></div>
+  <div class="row2" style="margin-top:14px">
+    <div class="field"><label>Tax (%)</label><input type="number" id="tax" value="0" oninput="recalc()"/></div>
+    <div class="field"><label>Notes</label><input id="notes" placeholder="Payment due in 30 days..."/></div>
+  </div>
+  <button class="print-btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+</div>
+<script>
+  document.getElementById('date').valueAsDate=new Date();
+  function addRow(){
+    const tb=document.getElementById('tbody');
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><input placeholder="Item description" oninput="recalc()"/></td><td><input type="number" value="1" min="0" style="width:60px" oninput="recalc()"/></td><td><input type="number" value="0" min="0" oninput="recalc()"/></td><td class="amt">₹0.00</td><td><button class="del" onclick="this.closest('tr').remove();recalc()">✕</button></td>`;
+    tb.appendChild(tr);
+  }
+  function recalc(){
+    let sub=0;document.querySelectorAll('#tbody tr').forEach(tr=>{const cells=tr.querySelectorAll('input');const q=+cells[1]?.value||0,r=+cells[2]?.value||0,amt=q*r;tr.querySelector('.amt').textContent='₹'+amt.toFixed(2);sub+=amt;});
+    const tax=+document.getElementById('tax').value||0,total=sub*(1+tax/100);
+    document.getElementById('total').innerHTML=`Subtotal: ₹${sub.toFixed(2)} | Tax: ${tax}% | <b>Total: ₹${total.toFixed(2)}</b>`;
+  }
+  addRow();addRow();addRow();
+</script>
+</body>
+</html>

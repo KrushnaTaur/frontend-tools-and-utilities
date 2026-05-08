@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Binary Converter</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+    body{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f4f6f8;padding:20px}
+    .card{background:#fff;width:100%;max-width:460px;padding:28px;border-radius:16px;box-shadow:0 12px 28px rgba(0,0,0,0.08)}
+    h1{text-align:center;margin-bottom:20px;color:#333;font-size:1.5rem}
+    .field{margin-bottom:12px}label{display:block;margin-bottom:5px;font-size:0.85rem;color:#555}
+    input{width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:1rem;font-family:monospace}
+    .btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+    button{padding:10px;background:#4c8bf5;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:0.9rem}
+    button:hover{background:#3a73d9}
+    .err{color:#e74c3c;font-size:0.85rem;min-height:20px}
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>Binary Converter</h1>
+  <div class="field"><label>Decimal</label><input id="dec" placeholder="e.g. 255" oninput="fromDec()"/></div>
+  <div class="field"><label>Binary</label><input id="bin" placeholder="e.g. 11111111" oninput="fromBin()"/></div>
+  <div class="field"><label>Octal</label><input id="oct" placeholder="e.g. 377" oninput="fromOct()"/></div>
+  <div class="field"><label>Hexadecimal</label><input id="hex" placeholder="e.g. FF" oninput="fromHex()"/></div>
+  <button onclick="clearAll()" style="width:100%;margin-top:4px;background:#f1f3f5;color:#555">Clear All</button>
+  <div class="err" id="err"></div>
+</div>
+<script>
+  function setAll(n){if(isNaN(n)){document.getElementById('err').textContent='Invalid input';return;}document.getElementById('err').textContent='';document.getElementById('dec').value=n;document.getElementById('bin').value=n.toString(2);document.getElementById('oct').value=n.toString(8);document.getElementById('hex').value=n.toString(16).toUpperCase();}
+  function fromDec(){const v=parseInt(document.getElementById('dec').value,10);setAll(v);}
+  function fromBin(){const v=parseInt(document.getElementById('bin').value,2);setAll(v);}
+  function fromOct(){const v=parseInt(document.getElementById('oct').value,8);setAll(v);}
+  function fromHex(){const v=parseInt(document.getElementById('hex').value,16);setAll(v);}
+  function clearAll(){['dec','bin','oct','hex'].forEach(id=>document.getElementById(id).value='');document.getElementById('err').textContent='';}
+</script>
+</body>
+</html>

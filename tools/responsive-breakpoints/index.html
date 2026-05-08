@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Responsive Breakpoints Checker</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+    body{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f4f6f8;padding:20px}
+    .card{background:#fff;width:100%;max-width:560px;padding:28px;border-radius:16px;box-shadow:0 12px 28px rgba(0,0,0,0.08)}
+    h1{text-align:center;margin-bottom:20px;color:#333;font-size:1.5rem}
+    .row{display:flex;gap:10px;margin-bottom:14px}
+    input{flex:1;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:1rem}
+    button{padding:10px 18px;background:#4c8bf5;color:#fff;border:none;border-radius:8px;cursor:pointer}
+    button:hover{background:#3a73d9}
+    .preview{width:100%;height:200px;border:none;border-radius:10px;display:none;margin-bottom:14px;border:2px solid #4c8bf5;transition:width 0.3s}
+    .bp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-top:10px}
+    .bp{border:1px solid #eee;border-radius:8px;padding:10px;text-align:center;cursor:pointer;transition:0.2s}
+    .bp:hover,.bp.active{background:#4c8bf5;color:#fff;border-color:#4c8bf5}
+    .bp .name{font-weight:700;font-size:0.9rem}
+    .bp .size{font-size:0.75rem;color:inherit;opacity:0.7;margin-top:2px}
+    .current{text-align:center;color:#4c8bf5;font-weight:700;margin-top:10px;font-size:1rem}
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>Responsive Breakpoints</h1>
+  <div class="row">
+    <input id="url" placeholder="https://example.com" value="https://example.com"/>
+    <button onclick="loadSite()">Load</button>
+  </div>
+  <iframe id="preview" class="preview"></iframe>
+  <div class="current" id="current"></div>
+  <div class="bp-grid" id="bpgrid"></div>
+</div>
+<script>
+  const bps=[{name:'Mobile S',w:320},{name:'Mobile M',w:375},{name:'Mobile L',w:425},{name:'Tablet',w:768},{name:'Laptop',w:1024},{name:'Laptop L',w:1440},{name:'4K',w:2560},{name:'Custom',w:0}];
+  const grid=document.getElementById('bpgrid');
+  bps.forEach(b=>{const d=document.createElement('div');d.className='bp';d.innerHTML=`<div class="name">${b.name}</div><div class="size">${b.w?b.w+'px':'?'}</div>`;d.onclick=()=>{grid.querySelectorAll('.bp').forEach(x=>x.classList.remove('active'));d.classList.add('active');if(b.w===0){const w=prompt('Enter custom width in px:');if(w)setWidth(+w);}else setWidth(b.w);};grid.appendChild(d);});
+  function loadSite(){const url=document.getElementById('url').value;const f=document.getElementById('preview');f.src=url;f.style.display='block';setWidth(375);grid.querySelector('.bp:nth-child(2)').classList.add('active');}
+  function setWidth(w){const f=document.getElementById('preview');f.style.width=w+'px';f.style.maxWidth='100%';document.getElementById('current').textContent=`Preview width: ${w}px`;}
+</script>
+</body>
+</html>

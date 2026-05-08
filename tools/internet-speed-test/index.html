@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Internet Speed Test</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+    body{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f4f6f8;padding:20px}
+    .card{background:#fff;width:100%;max-width:400px;padding:32px;border-radius:16px;box-shadow:0 12px 28px rgba(0,0,0,0.08);text-align:center}
+    h1{margin-bottom:6px;color:#333;font-size:1.5rem}
+    p{color:#999;font-size:0.85rem;margin-bottom:24px}
+    .gauge{position:relative;width:160px;height:160px;margin:0 auto 20px;border-radius:50%;background:conic-gradient(#4c8bf5 0deg,#f1f3f5 0deg);display:flex;align-items:center;justify-content:center}
+    .gauge-inner{width:120px;height:120px;background:#fff;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .speed{font-size:2rem;font-weight:700;color:#333}
+    .unit{font-size:0.85rem;color:#999}
+    .stats{display:flex;justify-content:space-around;margin-bottom:20px}
+    .stat .val{font-size:1.2rem;font-weight:700;color:#4c8bf5}
+    .stat .lbl{font-size:0.8rem;color:#999;margin-top:2px}
+    button{width:100%;padding:12px;background:#4c8bf5;color:#fff;border:none;border-radius:10px;font-size:1rem;cursor:pointer;font-weight:600}
+    button:hover{background:#3a73d9}
+    button:disabled{background:#9ca3af;cursor:not-allowed}
+    .status{margin-top:12px;font-size:0.9rem;color:#999;min-height:20px}
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>Speed Test</h1>
+  <p>Tests your download speed using a fetch request</p>
+  <div class="gauge" id="gauge">
+    <div class="gauge-inner"><div class="speed" id="speed">—</div><div class="unit">Mbps</div></div>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="val" id="ping">—</div><div class="lbl">Ping (ms)</div></div>
+    <div class="stat"><div class="val" id="dl">—</div><div class="lbl">Download</div></div>
+    <div class="stat"><div class="val" id="latency">—</div><div class="lbl">Latency</div></div>
+  </div>
+  <button id="btn" onclick="runTest()">Start Test</button>
+  <div class="status" id="status"></div>
+</div>
+<script>
+  async function measurePing(){const t=performance.now();await fetch('https://www.cloudflare.com/cdn-cgi/trace',{cache:'no-store'});return Math.round(performance.now()-t);}
+  async function measureSpeed(){
+    const url='https://speed.cloudflare.com/__down?bytes=10000000';
+    const t=performance.now();let loaded=0;
+    const r=await fetch(url,{cache:'no-store'});
+    const reader=r.body.getReader();
+    while(true){const{done,value}=await reader.read();if(done)break;loaded+=value.length;const elapsed=(performance.now()-t)/1000;const mbps=(loaded*8/1e6/elapsed);document.getElementById('speed').textContent=mbps.toFixed(1);const deg=Math.min(360,mbps/100*360);document.getElementById('gauge').style.background=`conic-gradient(#4c8bf5 ${deg}deg, #f1f3f5 ${deg}deg)`;}
+    return((loaded*8/1e6)/((performance.now()-t)/1000)).toFixed(2);
+  }
+  async function runTest(){
+    const btn=document.getElementById('btn');btn.disabled=true;btn.textContent='Testing...';
+    document.getElementById('status').textContent='Measuring ping...';
+    try{
+      const ping=await measurePing();document.getElementById('ping').textContent=ping;
+      document.getElementById('status').textContent='Measuring download speed...';
+      const dl=await measureSpeed();
+      document.getElementById('dl').textContent=dl+' Mbps';document.getElementById('latency').textContent=ping;
+      document.getElementById('status').textContent='Test complete!';
+    }catch(e){document.getElementById('status').textContent='Error: check connection and try again.';}
+    btn.disabled=false;btn.textContent='Test Again';
+  }
+</script>
+</body>
+</html>

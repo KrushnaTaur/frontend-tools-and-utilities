@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Number to Words</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+    body{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f4f6f8;padding:20px}
+    .card{background:#fff;width:100%;max-width:460px;padding:28px;border-radius:16px;box-shadow:0 12px 28px rgba(0,0,0,0.08)}
+    h1{text-align:center;margin-bottom:20px;color:#333;font-size:1.5rem}
+    input{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size:1.1rem;margin-bottom:12px}
+    button{width:100%;padding:11px;background:#4c8bf5;color:#fff;border:none;border-radius:10px;font-size:1rem;cursor:pointer}
+    button:hover{background:#3a73d9}
+    .result{margin-top:16px;padding:14px;background:#f1f3f5;border-radius:10px;font-size:1.1rem;color:#333;line-height:1.5;display:none;text-transform:capitalize}
+    .err{color:#e74c3c;font-size:0.9rem;margin-top:8px;display:none}
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>Number to Words</h1>
+  <input type="number" id="num" placeholder="Enter a number (e.g. 12345)"/>
+  <button onclick="convert()">Convert</button>
+  <div class="result" id="result"></div>
+  <div class="err" id="err"></div>
+</div>
+<script>
+  const ones=['','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve','Thirteen','Fourteen','Fifteen','Sixteen','Seventeen','Eighteen','Nineteen'];
+  const tens=['','','Twenty','Thirty','Forty','Fifty','Sixty','Seventy','Eighty','Ninety'];
+  function toWords(n){
+    if(n===0)return'Zero';
+    if(n<0)return'Negative '+toWords(-n);
+    if(n<20)return ones[n];
+    if(n<100)return tens[Math.floor(n/10)]+(n%10?' '+ones[n%10]:'');
+    if(n<1000)return ones[Math.floor(n/100)]+' Hundred'+(n%100?' '+toWords(n%100):'');
+    if(n<1e6)return toWords(Math.floor(n/1000))+' Thousand'+(n%1000?' '+toWords(n%1000):'');
+    if(n<1e9)return toWords(Math.floor(n/1e6))+' Million'+(n%1e6?' '+toWords(n%1e6):'');
+    if(n<1e12)return toWords(Math.floor(n/1e9))+' Billion'+(n%1e9?' '+toWords(n%1e9):'');
+    return'Number too large';
+  }
+  function convert(){
+    const n=+document.getElementById('num').value;
+    const res=document.getElementById('result'),err=document.getElementById('err');
+    if(isNaN(n)){err.style.display='block';err.textContent='Please enter a valid number.';res.style.display='none';return;}
+    err.style.display='none';res.style.display='block';res.textContent=toWords(Math.round(n));
+  }
+</script>
+</body>
+</html>

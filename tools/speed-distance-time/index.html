@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Speed / Distance / Time Calculator</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+    body{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f4f6f8;padding:20px}
+    .card{background:#fff;width:100%;max-width:420px;padding:28px;border-radius:16px;box-shadow:0 12px 28px rgba(0,0,0,0.08)}
+    h1{text-align:center;margin-bottom:8px;color:#333;font-size:1.5rem}
+    p{text-align:center;color:#999;font-size:0.85rem;margin-bottom:20px}
+    .section{border:1px solid #eee;border-radius:10px;padding:14px;margin-bottom:14px}
+    .section h3{font-size:0.9rem;color:#4c8bf5;margin-bottom:10px;font-weight:700}
+    .row{display:flex;gap:8px;align-items:center}
+    input{flex:1;padding:9px;border:1px solid #ddd;border-radius:8px;font-size:1rem}
+    select{padding:9px;border:1px solid #ddd;border-radius:8px;font-size:0.9rem}
+    button{padding:9px 16px;background:#4c8bf5;color:#fff;border:none;border-radius:8px;cursor:pointer}
+    button:hover{background:#3a73d9}
+    .res{margin-top:8px;font-weight:700;color:#333;font-size:1.1rem}
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>Speed / Distance / Time</h1>
+  <p>Fill in any two values to calculate the third.</p>
+  <div class="section">
+    <h3>Find Speed</h3>
+    <div class="row"><input id="d1" type="number" placeholder="Distance (km)"/><input id="t1" type="number" placeholder="Time (h)"/><button onclick="calcSpeed()">Go</button></div>
+    <div class="res" id="sr"></div>
+  </div>
+  <div class="section">
+    <h3>Find Distance</h3>
+    <div class="row"><input id="s2" type="number" placeholder="Speed (km/h)"/><input id="t2" type="number" placeholder="Time (h)"/><button onclick="calcDist()">Go</button></div>
+    <div class="res" id="dr"></div>
+  </div>
+  <div class="section">
+    <h3>Find Time</h3>
+    <div class="row"><input id="d3" type="number" placeholder="Distance (km)"/><input id="s3" type="number" placeholder="Speed (km/h)"/><button onclick="calcTime()">Go</button></div>
+    <div class="res" id="tr"></div>
+  </div>
+</div>
+<script>
+  function calcSpeed(){const d=+document.getElementById('d1').value,t=+document.getElementById('t1').value;document.getElementById('sr').textContent=t?`Speed: ${(d/t).toFixed(4)} km/h`:'Enter time';}
+  function calcDist(){const s=+document.getElementById('s2').value,t=+document.getElementById('t2').value;document.getElementById('dr').textContent=`Distance: ${(s*t).toFixed(4)} km`;}
+  function calcTime(){const d=+document.getElementById('d3').value,s=+document.getElementById('s3').value;const h=d/s;const hrs=Math.floor(h),mins=Math.round((h-hrs)*60);document.getElementById('tr').textContent=s?`Time: ${hrs}h ${mins}m`:'Enter speed';}
+</script>
+</body>
+</html>

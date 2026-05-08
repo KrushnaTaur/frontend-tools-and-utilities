@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Code Formatter</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+    body{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f4f6f8;padding:20px}
+    .card{background:#fff;width:100%;max-width:600px;padding:28px;border-radius:16px;box-shadow:0 12px 28px rgba(0,0,0,0.08)}
+    h1{text-align:center;margin-bottom:20px;color:#333;font-size:1.5rem}
+    .toolbar{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+    select{padding:9px 12px;border:1px solid #ddd;border-radius:8px;font-size:0.95rem}
+    button{padding:9px 16px;background:#4c8bf5;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:0.95rem}
+    button:hover{background:#3a73d9}
+    .cp{background:#e8f0ff;color:#2a4dbf}
+    .cp:hover{background:#d8e6ff}
+    textarea{width:100%;height:200px;padding:12px;border:1px solid #ddd;border-radius:10px;font-family:monospace;font-size:0.9rem;resize:vertical}
+    .err{color:#e74c3c;font-size:0.85rem;margin-top:8px;min-height:20px}
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>Code Formatter</h1>
+  <div class="toolbar">
+    <select id="lang">
+      <option value="json">JSON</option>
+      <option value="html">HTML</option>
+      <option value="css">CSS</option>
+    </select>
+    <button onclick="format()">Format</button>
+    <button onclick="minify()" class="cp">Minify</button>
+    <button onclick="navigator.clipboard.writeText(document.getElementById('output').value)" class="cp">Copy</button>
+    <button onclick="document.getElementById('input').value='';document.getElementById('output').value=''" style="background:#f1f3f5;color:#555">Clear</button>
+  </div>
+  <textarea id="input" placeholder="Paste your code here..."></textarea>
+  <div class="err" id="err"></div>
+  <textarea id="output" readonly style="margin-top:12px;background:#f9f9f9"></textarea>
+</div>
+<script>
+  function format(){
+    const lang=document.getElementById('lang').value,code=document.getElementById('input').value;
+    document.getElementById('err').textContent='';
+    try{
+      if(lang==='json'){document.getElementById('output').value=JSON.stringify(JSON.parse(code),null,2);}
+      else if(lang==='html'){document.getElementById('output').value=formatHTML(code);}
+      else{document.getElementById('output').value=formatCSS(code);}
+    }catch(e){document.getElementById('err').textContent='Error: '+e.message;}
+  }
+  function minify(){
+    const lang=document.getElementById('lang').value,code=document.getElementById('input').value;
+    try{
+      if(lang==='json'){document.getElementById('output').value=JSON.stringify(JSON.parse(code));}
+      else{document.getElementById('output').value=code.replace(/\s+/g,' ').trim();}
+    }catch(e){document.getElementById('err').textContent='Error: '+e.message;}
+  }
+  function formatHTML(h){let i=0,r='',indent=()=>' '.repeat(i*2);const tags=h.match(/<[^>]+>|[^<]+/g)||[];tags.forEach(t=>{if(/^<\//.test(t))i=Math.max(0,i-1);r+=indent()+t.trim()+'\n';if(/^<[^\/!]/.test(t)&&!/<.*\/>$/.test(t)&&!/<(br|hr|img|input|link|meta)/i.test(t))i++;});return r;}
+  function formatCSS(c){return c.replace(/\{/g,' {\n  ').replace(/;/g,';\n  ').replace(/\}/g,'\n}\n').replace(/,\s*/g,',\n').trim();}
+</script>
+</body>
+</html>

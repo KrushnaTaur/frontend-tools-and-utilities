@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Roman Numeral Converter</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+    body{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f4f6f8;padding:20px}
+    .card{background:#fff;width:100%;max-width:420px;padding:28px;border-radius:16px;box-shadow:0 12px 28px rgba(0,0,0,0.08)}
+    h1{text-align:center;margin-bottom:20px;color:#333;font-size:1.5rem}
+    .section{border:1px solid #eee;border-radius:10px;padding:16px;margin-bottom:14px}
+    h3{font-size:0.95rem;color:#555;margin-bottom:10px}
+    .row{display:flex;gap:8px}
+    input{flex:1;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:1rem}
+    button{padding:10px 16px;background:#4c8bf5;color:#fff;border:none;border-radius:8px;cursor:pointer}
+    button:hover{background:#3a73d9}
+    .res{margin-top:10px;font-weight:700;color:#4c8bf5;font-size:1.2rem}
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>Roman Numeral Converter</h1>
+  <div class="section">
+    <h3>Integer → Roman</h3>
+    <div class="row"><input type="number" id="int" placeholder="e.g. 2024" min="1" max="3999"/><button onclick="toRoman()">Convert</button></div>
+    <div class="res" id="r1"></div>
+  </div>
+  <div class="section">
+    <h3>Roman → Integer</h3>
+    <div class="row"><input id="rom" placeholder="e.g. MMXXIV" style="text-transform:uppercase"/><button onclick="fromRoman()">Convert</button></div>
+    <div class="res" id="r2"></div>
+  </div>
+</div>
+<script>
+  const vals=[[1000,'M'],[900,'CM'],[500,'D'],[400,'CD'],[100,'C'],[90,'XC'],[50,'L'],[40,'XL'],[10,'X'],[9,'IX'],[5,'V'],[4,'IV'],[1,'I']];
+  function toRoman(){let n=+document.getElementById('int').value,r='';if(n<1||n>3999){document.getElementById('r1').textContent='Enter 1–3999';return;}vals.forEach(([v,s])=>{while(n>=v){r+=s;n-=v;}});document.getElementById('r1').textContent=r;}
+  function fromRoman(){
+    const s=document.getElementById('rom').value.toUpperCase();
+    const map={I:1,V:5,X:10,L:50,C:100,D:500,M:1000};
+    let n=0;for(let i=0;i<s.length;i++){const cur=map[s[i]],next=map[s[i+1]];if(next&&cur<next){n+=next-cur;i++;}else n+=cur;}
+    document.getElementById('r2').textContent=n||'Invalid';
+  }
+</script>
+</body>
+</html>

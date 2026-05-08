@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Percentage Calculator</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+    body{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f4f6f8;padding:20px}
+    .card{background:#fff;width:100%;max-width:440px;padding:28px;border-radius:16px;box-shadow:0 12px 28px rgba(0,0,0,0.08)}
+    h1{text-align:center;margin-bottom:20px;color:#333;font-size:1.5rem}
+    .section{border:1px solid #eee;border-radius:10px;padding:16px;margin-bottom:16px}
+    .section h3{font-size:0.95rem;color:#555;margin-bottom:12px}
+    .row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+    input{flex:1;padding:9px 12px;border:1px solid #ddd;border-radius:8px;font-size:1rem}
+    button{padding:9px 16px;background:#4c8bf5;color:#fff;border:none;border-radius:8px;cursor:pointer;white-space:nowrap}
+    button:hover{background:#3a73d9}
+    .res{margin-top:8px;font-weight:700;color:#4c8bf5;font-size:1.1rem}
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>Percentage Calculator</h1>
+  <div class="section">
+    <h3>What is X% of Y?</h3>
+    <div class="row"><input id="p1" type="number" placeholder="X %"/><span>% of</span><input id="v1" type="number" placeholder="Y"/><button onclick="calc1()">Calc</button></div>
+    <div class="res" id="r1"></div>
+  </div>
+  <div class="section">
+    <h3>X is what % of Y?</h3>
+    <div class="row"><input id="p2" type="number" placeholder="X"/><span>of</span><input id="v2" type="number" placeholder="Y"/><button onclick="calc2()">Calc</button></div>
+    <div class="res" id="r2"></div>
+  </div>
+  <div class="section">
+    <h3>% Change from X to Y</h3>
+    <div class="row"><input id="p3" type="number" placeholder="From X"/><span>to</span><input id="v3" type="number" placeholder="To Y"/><button onclick="calc3()">Calc</button></div>
+    <div class="res" id="r3"></div>
+  </div>
+</div>
+<script>
+  function calc1(){const p=+document.getElementById('p1').value,v=+document.getElementById('v1').value;document.getElementById('r1').textContent=`Result: ${(p/100*v).toFixed(4)}`;}
+  function calc2(){const p=+document.getElementById('p2').value,v=+document.getElementById('v2').value;document.getElementById('r2').textContent=`Result: ${(p/v*100).toFixed(4)}%`;}
+  function calc3(){const p=+document.getElementById('p3').value,v=+document.getElementById('v3').value;document.getElementById('r3').textContent=`Change: ${((v-p)/p*100).toFixed(4)}%`;}
+</script>
+</body>
+</html>

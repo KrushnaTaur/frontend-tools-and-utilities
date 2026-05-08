@@ -1,4 +1,5 @@
 const tools = [
+  // --- ORIGINAL 20 ---
   {
     name: "QR Code Generator",
     description: "Generate and download QR codes from text or URLs.",
@@ -34,7 +35,7 @@ const tools = [
     live: "./tools/unit-converter/index.html",
     code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/unit-converter"
   },
-    {
+  {
     name: "Tip Calculator",
     description: "Calculate tip, total bill, and split amount per person.",
     image: "./assets/tip.png",
@@ -138,6 +139,218 @@ const tools = [
     image: "./assets/loan.png",
     live: "./tools/loan-eligibility-calculator/index.html",
     code: "https://github.com/KrushnaTaur/frontend-tools-and-utilities/tree/main/tools/loan-eligibility-calculator"
+  },
+
+  // --- NEW 30 ---
+  {
+    name: "Word Counter",
+    description: "Count words, characters, sentences, paragraphs, and estimated read time.",
+    image: "./assets/text-stats.png",
+    live: "./tools/word-counter/index.html",
+    code: "#"
+  },
+  {
+    name: "Character Counter",
+    description: "Count characters with a configurable limit and visual progress bar.",
+    image: "./assets/text.png",
+    live: "./tools/character-counter/index.html",
+    code: "#"
+  },
+  {
+    name: "Currency Converter",
+    description: "Convert between 20+ world currencies with approximate rates.",
+    image: "./assets/unit.png",
+    live: "./tools/currency-converter/index.html",
+    code: "#"
+  },
+  {
+    name: "Percentage Calculator",
+    description: "Calculate percentage of, what percent, and percentage change.",
+    image: "./assets/bmi.png",
+    live: "./tools/percentage-calculator/index.html",
+    code: "#"
+  },
+  {
+    name: "HEX ↔ RGB Converter",
+    description: "Convert colors between HEX and RGB formats with live preview.",
+    image: "./assets/color.png",
+    live: "./tools/hex-to-rgb/index.html",
+    code: "#"
+  },
+  {
+    name: "UUID Generator",
+    description: "Generate cryptographically secure UUID v4 values in bulk.",
+    image: "./assets/random.png",
+    live: "./tools/uuid-generator/index.html",
+    code: "#"
+  },
+  {
+    name: "Hash Generator",
+    description: "Generate SHA-1, SHA-256, and SHA-512 hashes from any text.",
+    image: "./assets/password.png",
+    live: "./tools/hash-generator/index.html",
+    code: "#"
+  },
+  {
+    name: "Pomodoro Timer",
+    description: "Focus timer with 25-min work sessions and short/long breaks.",
+    image: "./assets/stopwatch.png",
+    live: "./tools/pomodoro-timer/index.html",
+    code: "#"
+  },
+  {
+    name: "Countdown Timer",
+    description: "Set a custom countdown with hours, minutes, and seconds.",
+    image: "./assets/stopwatch.png",
+    live: "./tools/countdown-timer/index.html",
+    code: "#"
+  },
+  {
+    name: "Number to Words",
+    description: "Convert any number into its English word representation.",
+    image: "./assets/text.png",
+    live: "./tools/number-to-words/index.html",
+    code: "#"
+  },
+  {
+    name: "Roman Numeral Converter",
+    description: "Convert between integers and Roman numerals bidirectionally.",
+    image: "./assets/unit.png",
+    live: "./tools/roman-numeral-converter/index.html",
+    code: "#"
+  },
+  {
+    name: "Binary Converter",
+    description: "Convert numbers between binary, decimal, octal, and hexadecimal.",
+    image: "./assets/json.png",
+    live: "./tools/binary-converter/index.html",
+    code: "#"
+  },
+  {
+    name: "IP Address Lookup",
+    description: "Look up geolocation, ISP, and timezone info for any IP address.",
+    image: "./assets/timezone.png",
+    live: "./tools/ip-address-lookup/index.html",
+    code: "#"
+  },
+  {
+    name: "Color Palette Generator",
+    description: "Generate analogous, complementary, triadic, or random color palettes.",
+    image: "./assets/color.png",
+    live: "./tools/color-palette-generator/index.html",
+    code: "#"
+  },
+  {
+    name: "ASCII Art Generator",
+    description: "Convert images or text into ASCII art characters.",
+    image: "./assets/markdown.png",
+    live: "./tools/ascii-art-generator/index.html",
+    code: "#"
+  },
+  {
+    name: "Morse Code Converter",
+    description: "Encode text to Morse code and decode Morse code to text.",
+    image: "./assets/text.png",
+    live: "./tools/morse-code-converter/index.html",
+    code: "#"
+  },
+  {
+    name: "Text Encryptor",
+    description: "Encrypt and decrypt text using AES-GCM with a password (browser-only).",
+    image: "./assets/password.png",
+    live: "./tools/text-encryptor/index.html",
+    code: "#"
+  },
+  {
+    name: "Image to Base64",
+    description: "Convert any image to a Base64 data URL for embedding.",
+    image: "./assets/base64.png",
+    live: "./tools/image-to-base64/index.html",
+    code: "#"
+  },
+  {
+    name: "CSS Box Shadow Generator",
+    description: "Visually design box shadows and copy the CSS with one click.",
+    image: "./assets/gradient.png",
+    live: "./tools/css-box-shadow/index.html",
+    code: "#"
+  },
+  {
+    name: "Responsive Breakpoints",
+    description: "Preview any website at common responsive design breakpoints.",
+    image: "./assets/markdown.png",
+    live: "./tools/responsive-breakpoints/index.html",
+    code: "#"
+  },
+  {
+    name: "Word Frequency Analyzer",
+    description: "Analyze text and see the most frequently used words ranked.",
+    image: "./assets/text-stats.png",
+    live: "./tools/word-frequency/index.html",
+    code: "#"
+  },
+  {
+    name: "Loan Calculator",
+    description: "Calculate EMI, total interest, and total payment for any loan.",
+    image: "./assets/loan.png",
+    live: "./tools/loan-calculator/index.html",
+    code: "#"
+  },
+  {
+    name: "Speed / Distance / Time",
+    description: "Calculate speed, distance, or time — enter any two to find the third.",
+    image: "./assets/unit.png",
+    live: "./tools/speed-distance-time/index.html",
+    code: "#"
+  },
+  {
+    name: "Temperature Converter",
+    description: "Convert between Celsius, Fahrenheit, Kelvin, and Rankine instantly.",
+    image: "./assets/unit.png",
+    live: "./tools/temperature-converter/index.html",
+    code: "#"
+  },
+  {
+    name: "Calorie Calculator",
+    description: "Calculate your daily calorie needs using the Mifflin-St Jeor equation.",
+    image: "./assets/bmi.png",
+    live: "./tools/calorie-calculator/index.html",
+    code: "#"
+  },
+  {
+    name: "Invoice Generator",
+    description: "Create and print professional invoices with line items and tax.",
+    image: "./assets/loan.png",
+    live: "./tools/invoice-generator/index.html",
+    code: "#"
+  },
+  {
+    name: "Code Formatter",
+    description: "Format and minify JSON, HTML, and CSS with one click.",
+    image: "./assets/json.png",
+    live: "./tools/code-formatter/index.html",
+    code: "#"
+  },
+  {
+    name: "URL Encoder / Decoder",
+    description: "Encode or decode URL strings using encodeURIComponent.",
+    image: "./assets/base64.png",
+    live: "./tools/url-encoder/index.html",
+    code: "#"
+  },
+  {
+    name: "Internet Speed Test",
+    description: "Test your download speed and ping using a real fetch request.",
+    image: "./assets/random.png",
+    live: "./tools/internet-speed-test/index.html",
+    code: "#"
+  },
+  {
+    name: "Paint App",
+    description: "Draw freely in the browser with brush, eraser, fill, and color picker.",
+    image: "./assets/color.png",
+    live: "./tools/paint-app/index.html",
+    code: "#"
   }
 ];
 
@@ -149,7 +362,7 @@ tools.forEach(tool => {
   card.className = "tool-card";
 
   card.innerHTML = `
-    <img src="${tool.image}" class="tool-image" alt="${tool.name}">
+    <img src="${tool.image}" class="tool-image" alt="${tool.name}" onerror="this.style.background='#1e293b';this.style.minHeight='150px'">
     <div class="tool-content">
       <h3>${tool.name}</h3>
       <p>${tool.description}</p>

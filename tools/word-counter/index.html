@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Word Counter</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+    body{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f4f6f8;padding:20px}
+    .card{background:#fff;width:100%;max-width:520px;padding:28px;border-radius:16px;box-shadow:0 12px 28px rgba(0,0,0,0.08)}
+    h1{text-align:center;margin-bottom:18px;color:#333;font-size:1.5rem}
+    textarea{width:100%;height:160px;padding:12px;border:1px solid #ddd;border-radius:10px;font-size:1rem;resize:vertical}
+    .stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+    .stat{background:#f1f3f5;border-radius:10px;padding:14px;text-align:center}
+    .stat .val{font-size:1.6rem;font-weight:700;color:#4c8bf5}
+    .stat .lbl{font-size:0.8rem;color:#666;margin-top:4px}
+    button{width:100%;margin-top:14px;padding:11px;background:#4c8bf5;color:#fff;border:none;border-radius:10px;font-size:1rem;cursor:pointer}
+    button:hover{background:#3a73d9}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Word Counter</h1>
+    <textarea id="txt" placeholder="Type or paste your text here..."></textarea>
+    <div class="stats">
+      <div class="stat"><div class="val" id="words">0</div><div class="lbl">Words</div></div>
+      <div class="stat"><div class="val" id="chars">0</div><div class="lbl">Characters</div></div>
+      <div class="stat"><div class="val" id="nosp">0</div><div class="lbl">Chars (no spaces)</div></div>
+      <div class="stat"><div class="val" id="sents">0</div><div class="lbl">Sentences</div></div>
+      <div class="stat"><div class="val" id="paras">0</div><div class="lbl">Paragraphs</div></div>
+      <div class="stat"><div class="val" id="readtime">0</div><div class="lbl">Read time (min)</div></div>
+    </div>
+    <button onclick="document.getElementById('txt').value='';update()">Clear</button>
+  </div>
+  <script>
+    const txt=document.getElementById('txt');
+    function update(){
+      const v=txt.value;
+      const words=v.trim()===''?0:v.trim().split(/\s+/).length;
+      document.getElementById('words').textContent=words;
+      document.getElementById('chars').textContent=v.length;
+      document.getElementById('nosp').textContent=v.replace(/\s/g,'').length;
+      document.getElementById('sents').textContent=(v.match(/[.!?]+/g)||[]).length;
+      document.getElementById('paras').textContent=v.trim()===''?0:v.trim().split(/\n\s*\n/).length;
+      document.getElementById('readtime').textContent=Math.ceil(words/200);
+    }
+    txt.addEventListener('input',update);
+  </script>
+</body>
+</html>
